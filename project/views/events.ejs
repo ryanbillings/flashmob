@@ -34,6 +34,7 @@
   </head>
   <body onload = "initialize()">
     <h1>Events</h1>
+    <span>Welcome <%= user %></span>
     <% for(var i = 0; i < allEvents.length; i++){ %>
         <div><a href = "/event/<%=allEvents[i]._id%>"><%= allEvents[i].name %></a></div>
     <% } %>
