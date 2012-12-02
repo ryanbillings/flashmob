@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src = "/javascripts/events.js" ></script>
+    <script type = "text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCb9wRumFqLsS70GZQ4wzouUmaETo2Mv84&sensor=false"></script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+              map.setCenter(initialLocation);
+            }, function() {});
+        }
+
+        
+        var latLng;
+        <% for(var i = 0; i < allEvents.length; i++){ %>
+            latLng = new google.maps.LatLng(<%=allEvents[i].latitude%>,
+                                                 <%=allEvents[i].longitude%>);
+            var marker<%=i%> = new google.maps.Marker({
+                position: latLng,
+                title: "<%= allEvents[i].name %>"
+            });
+            marker<%=i%>.setMap(map);
+        <% } %>
+      }
+    </script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-  <body>
+  <body onload = "initialize()">
     <h1>Events</h1>
-    <p>Welcome to the events page</p>
+    <% for(var i = 0; i < allEvents.length; i++){ %>
+        <div><%= allEvents[i].name %></div>
+    <% } %>
+    <div id = "map_canvas" style = "width: 600px; height: 600px"></div>
   </body>
 </html>

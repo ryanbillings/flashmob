@@ -26,13 +26,25 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// Retrieve
+var MongoClient = require('mongodb').MongoClient;
+
+// Connect to the db
+MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+  if(err) { return console.dir(err); }
+  db.createCollection('event', function(err, collection) {});
+  db.createCollection('user', function(err, collection) {});
+  db.close();
+});
+
 app.get('/login',routes.login);
 app.get('/', routes.index);
 app.get('/events',routes.events);
 app.get('/events/:id',routes.showEvent);
+app.get('/createEvent',routes.eventForm);
+app.post('/createEvent',routes.createEvent);
 app.get('/profile', routes.profile);
 app.post('/updatelocation', routes.location);
-
 
 
 http.createServer(app).listen(app.get('port'), function(){
