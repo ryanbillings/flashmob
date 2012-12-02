@@ -35,7 +35,7 @@
   <body onload = "initialize()">
     <h1>Events</h1>
     <% for(var i = 0; i < allEvents.length; i++){ %>
-        <div><%= allEvents[i].name %></div>
+        <div><a href = "/event/<%=allEvents[i]._id%>"><%= allEvents[i].name %></a></div>
     <% } %>
     <div id = "map_canvas" style = "width: 600px; height: 600px"></div>
   </body>

@@ -40,7 +40,7 @@ MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
 app.get('/login',routes.login);
 app.get('/', routes.index);
 app.get('/events',routes.events);
-app.get('/events/:id',routes.showEvent);
+app.get('/event/:id',routes.showEvent);
 app.get('/createEvent',routes.eventForm);
 app.post('/createEvent',routes.createEvent);
 app.get('/profile', routes.profile);

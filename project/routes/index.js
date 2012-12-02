@@ -1,5 +1,7 @@
-var MongoClient = require('mongodb').MongoClient;
+var mongo = require('mongodb');
+var MongoClient = mongo.MongoClient;
 var geocoder = require('geocoder');
+var BSON = mongo.BSONPure;
 
 /*
  * GET home page.
@@ -25,10 +27,26 @@ exports.events = function(req,res){
     });
 };
 
+// Show an Event
+exports.showEvent = function(req,res){
+    MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+        if(err) { return console.dir(err); }
+        var collection = db.collection('event');
+        var o_id = new BSON.ObjectID(req.param("id"));
+        // Get the events
+        collection.findOne({_id : o_id},function(err,result){
+               db.close();
+               res.render('event', { event:result });
+        });
+    });
+};
+
+// Form to create Event
 exports.eventForm = function (req, res){
     res.render('eventform');
 };
 
+// Post Method on Form Submit
 exports.createEvent = function(req,res){
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
     if(err) { return console.dir(err); }
