@@ -3,6 +3,12 @@ var MongoClient = mongo.MongoClient;
 var geocoder = require('geocoder');
 var BSON = mongo.BSONPure;
 
+/** Converts numeric degrees to radians */
+if(typeof(Number.prototype.toRad) === "undefined") {
+    Number.prototype.toRad = function () {
+        return this * Math.PI / 180;
+    }
+}
 
 // GET Login
 exports.login = function(req,res){
@@ -19,6 +25,22 @@ exports.signup = function(req,res){
     res.render('signup', { message : req.flash("error")});
 };
 
+exports.location = function(req,res){
+    MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+    if(err) { return console.dir(err); }
+        var collection = db.collection('user');
+        var newZip = req.param("newzip");
+        geocoder.geocode(req.param("newzip"),function(err,data){
+            var newLat = data.results[0].geometry.location.lat;
+            var newLng = data.results[0].geometry.location.lng;
+            collection.update({username:req.user.username},{"$set" : {latitude : newLat,longitude : newLng,zipcode: newZip}},function(err,item){
+                db.close();
+                res.redirect('/events');
+            });
+        });
+    });
+};
+
 exports.createUser = function(req,res){
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
     if(err) { return console.dir(err); }
@@ -26,18 +48,26 @@ exports.createUser = function(req,res){
         var newUser = 
         { 
             "username" : req.param("username"),
-            "password" : req.param("password")
+            "firstname" : req.param("firstname"),
+            "lastname" : req.param("lastname"),
+            "zipcode" : req.param("zipcode"),
+            "password" : req.param("password"),
+            "events" : []
         };
-        collection.findOne({"username":newUser.uesrname},function(err,item){
-            if(!item){
-                collection.insert(newUser, function(){
+        geocoder.geocode(req.param("zipcode"),function(err,data){
+            newUser.latitude = data.results[0].geometry.location.lat;
+            newUser.longitude = data.results[0].geometry.location.lng;
+            collection.findOne({username:newUser.username},function(err,item){
+                if(!item){
+                    collection.insert(newUser, function(){
+                        db.close();
+                        res.redirect('/events');
+                    });
+                }else{
                     db.close();
-                    res.redirect('/events');
-                });
-            }else{
-                db.close();
-                res.render('signup', { message : "Username already Chosen"});
-            }
+                    res.render('signup', { message : "Username already Chosen"});
+                }
+            });
         });
     });
 };
@@ -60,8 +90,28 @@ exports.events = function(req,res){
             var collection = db.collection('event'); 
             // Get the events
             collection.find().toArray(function(err,items){
-               db.close();
-               res.render('events', { allEvents:items,user:req.user.username });
+                db.close();
+                var decimals = 2;
+                var filteredItems = [];
+                var earthRadius = 6371;
+                for(var i = 0; i < items.length; i++){
+                    var eventLat = items[i].latitude;
+                    var eventLng = items[i].longitude;
+                    var userLat = req.user.latitude;
+                    var userLng = req.user.longitude;
+                    var dLat = (userLat - eventLat).toRad();
+                    var dLon = (userLng - eventLng).toRad();
+                    var lat1 = userLat.toRad();
+                    var lat2 = eventLat.toRad();
+                     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    var d = earthRadius * c;
+                    if((Math.round(d * Math.pow(10, decimals)) / Math.pow(10, decimals)) < 10){
+                        filteredItems.push(items[i]);
+                    } 
+                }
+                res.render('events', { allEvents:filteredItems,user:req.user });
             });
         });
     }else{
@@ -139,8 +189,13 @@ exports.createEvent = function(req,res){
             newEvent.latitude = data.results[0].geometry.location.lat;
             newEvent.longitude = data.results[0].geometry.location.lng;
             collection.insert(newEvent, function(){
-                db.close();
-                res.redirect('/events');
+                var userCollection = db.collection('user');
+                userCollection.update({"username":req.user.username},
+                                {"$push":{events:newEvent}},
+                                function(error, user){
+                                    db.close();
+                                    res.redirect('/events');
+                                });
             });
         });
     });
