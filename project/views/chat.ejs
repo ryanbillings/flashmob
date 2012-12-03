@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type = "text/javascript">
+      $(document).ready(function(){
+      
+          var socket = io.connect('http://localhost:3000');
+          var eventid = window.location.pathname.split( '/' )[1];
+          // Receive a message
+          socket.on("receive", function(data){
+            var newMessage = document.createElement("div");
+            var messageVal = document.createElement("span");
+            var userVal = document.createElement("span");
+            messageVal.innerHTML = data.message;
+            userVal.innerHTML = data.user;
+            $(newMessage).append(messageVal);
+            $(newMessage).append(userVal);
+            $("#chats").append(newMessage);
+          });
+          
+          
+          function attachListeners(){
+            // Submit a Message
+            $("#messageButton").click(function(){
+                var sendObj = 
+                {
+                    message : $("#sendMessage").val(),
+                    user: $("#username").html(),
+                    eventid: eventid
+                };
+                socket.emit("send", sendObj);
+            });
+            // Connect to the chat room
+            $("#connect").click(function(){
+                $("#chatOpts").slideDown(1000,function(){
+                    $("#connect").fadeOut();
+                });
+                socket.emit("sendUrl",eventid);
+            });
+          }
+          
+          attachListeners();
+      });
+    </script>
+  </head>
+  <body>
+    <div id = "container">
+        Welcome, <span id = "username"><%=username%></span>
+        <div id = "chats">
+        
+            
+        </div>
+        <div id = "chatOpts" style = "display:none;">
+        <input type = "text" id = "sendMessage" />
+        <input type = "button" id = "messageButton" value = "Send Message"/>
+        </div>
+        <input type = "button" id = "connect" value = "Connect"/>
+    </div>
+  </body>
+</html>

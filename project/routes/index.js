@@ -295,3 +295,11 @@ function dateCompare(a,b) {
     return 1;
   return 0;
 }
+
+exports.chat = function(req,res){
+    if(req.user && req.user.username){
+        res.render("chat",{"username":req.user.username});
+    }else{
+        res.redirect("/login");
+    }
+};
