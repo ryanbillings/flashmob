@@ -56,7 +56,8 @@ exports.createUser = function(req,res){
             "lastname" : req.param("lastname"),
             "zipcode" : req.param("zipcode"),
             "password" : req.param("password"),
-            "events" : []
+            "events" : [],
+            "messages" : []
         };
         geocoder.geocode(req.param("zipcode"),function(err,data){
             newUser.latitude = data.results[0].geometry.location.lat;
@@ -255,6 +256,7 @@ exports.createEvent = function(req,res){
         });
     });
     
+<<<<<<< HEAD
 }
 var month_names = new Array ( );
 month_names[month_names.length] = "January";
@@ -278,3 +280,58 @@ day_names[day_names.length] = "Wednesday";
 day_names[day_names.length] = "Thursday";
 day_names[day_names.length] = "Friday";
 day_names[day_names.length] = "Saturday";
+=======
+};
+
+exports.createMessage = function(req,res){
+    MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+    console.log('hi');
+    if(err) { return console.dir(err); }
+        var collection = db.collection('event');
+        var userCollection = db.collection('user');
+        var o_id = new BSON.ObjectID(req.param("eventid"));
+        var message = { "content" : req.param("content"),
+                        "from" : req.user.username,
+                        "created" : new Date()};
+        collection.findOne({_id:o_id}, function(err,evt){
+            for(var i = 0; i < evt.users.length; i++){
+                userCollection.update({username:evt.users[i]},
+                                {"$push":{messages:message}}, function(err, u){});
+            }
+        });
+        res.send({"success":true});
+    });
+};
+
+exports.messageForm = function(req,res){
+    if(req.user && req.user.username){
+        res.render("messageform");
+    }else{
+        res.redirect("/login");
+    }
+};
+
+exports.messages = function(req,res){
+    if(req.user && req.user.username){
+        MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+        if(err) { return console.dir(err); }
+            var collection = db.collection('user');
+            var uMessages = collection.find({username:req.user.username},{messages:1}).toArray(function(err,items){
+                db.close();
+                res.render("messages",{messages:items[0].messages.sort(dateCompare)});
+            });    
+        });
+    }else{
+        res.redirect("/login");
+    }
+};
+
+// Custom sort function for rendering dates
+function dateCompare(a,b) {
+  if (a.created < b.created)
+     return -1;
+  if (a.created > b.created)
+    return 1;
+  return 0;
+}
+>>>>>>> 70617e28b4ab292f3dcba83fc781f48eca08af23
