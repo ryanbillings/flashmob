@@ -264,7 +264,6 @@ exports.createMessage = function(req,res){
     });
 };
 
-
 exports.messageForm = function(req,res){
     if(req.user && req.user.username){
         res.render("messageform");
@@ -274,13 +273,25 @@ exports.messageForm = function(req,res){
 };
 
 exports.messages = function(req,res){
-    MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
-    if(err) { return console.dir(err); }
-        var collection = db.collection('user');
-        var uMessages = collection.find({username:req.user.username},{messages : 1}, function(err,items){
-            db.close();
-            res.render("messages",{messages:items});
-        });    
-    });
+    if(req.user && req.user.username){
+        MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+        if(err) { return console.dir(err); }
+            var collection = db.collection('user');
+            var uMessages = collection.find({username:req.user.username},{messages:1}).toArray(function(err,items){
+                db.close();
+                res.render("messages",{messages:items[0].messages.sort(dateCompare)});
+            });    
+        });
+    }else{
+        res.redirect("/login");
+    }
 };
 
+// Custom sort function for rendering dates
+function dateCompare(a,b) {
+  if (a.created < b.created)
+     return -1;
+  if (a.created > b.created)
+    return 1;
+  return 0;
+}
