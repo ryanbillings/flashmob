@@ -35,6 +35,46 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// Socket IO
+http = http.createServer(app);
+
+// Set up socket.io server
+var io = require('socket.io').listen(http);
+
+var chatRooms = {};
+io.sockets.on('connection', function(socket){
+
+    socket.on("sendUrl",function(eventid){
+        if(!chatRooms[eventid]){
+            chatRooms[eventid] = [];
+        }
+        chatRooms[eventid].push(socket);    
+    });
+    
+    /*
+    socket.on("disconnect",function(){
+        for(var key in chatRooms){
+            if(chatRooms[key].contains(socket)){
+                chatRooms[key].remove(socket);
+            }
+        }
+    });
+    */
+    
+    
+    socket.on("send",function(dataObj){
+        var thisChatRoom = chatRooms[dataObj.eventid];
+        for(var i = 0; i < thisChatRoom.length; i++){
+            var s = thisChatRoom[i];
+            var message = {
+                "message" : dataObj.message,
+                "user" : dataObj.user
+            };
+            s.emit("receive",message);
+        }
+    });
+});
+
 // Retrieve
 var MongoClient = require('mongodb').MongoClient;
 
@@ -95,12 +135,13 @@ app.get('/joinevent',routes.joinEvent);
 app.get('/profile', routes.profile);
 app.get('/updatelocation', routes.location);
 app.get('/refreshevents/:radius', routes.refreshEvents);
+app.get('/chat/:id', routes.chat);
 app.post('/login', passport.authenticate('local'),
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login',
                                    failureFlash: true })
 );
 
-http.createServer(app).listen(app.get('port'), function(){
+http.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
