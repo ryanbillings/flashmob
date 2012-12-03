@@ -12,7 +12,11 @@ if(typeof(Number.prototype.toRad) === "undefined") {
 
 // GET Login
 exports.login = function(req,res){
-    res.render('login', { message : req.flash("error")});
+    if(req.user && req.user.username){
+        res.redirect('/');
+    }else{
+        res.render('login', { message : req.flash("error")});
+    }
 };
 
 exports.logout = function(req,res){
@@ -76,7 +80,11 @@ exports.createUser = function(req,res){
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+  if(req.user && req.user.username){
+    res.render('index');
+  }else{
+    res.redirect("/login");
+  }
 };
 
 /* GET Events Page
@@ -117,6 +125,39 @@ exports.events = function(req,res){
     }else{
         res.redirect('/login');
     }
+};
+
+exports.refreshEvents = function(req,res){
+    var radius = parseInt(req.param("radius"));
+    MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+        if(err) { return console.dir(err); }
+        var collection = db.collection('event'); 
+        // Get the events
+        collection.find().toArray(function(err,items){
+            db.close();
+            var decimals = 2;
+            var filteredItems = [];
+            var earthRadius = 6371;
+            for(var i = 0; i < items.length; i++){
+                var eventLat = items[i].latitude;
+                var eventLng = items[i].longitude;
+                var userLat = req.user.latitude;
+                var userLng = req.user.longitude;
+                var dLat = (userLat - eventLat).toRad();
+                var dLon = (userLng - eventLng).toRad();
+                var lat1 = userLat.toRad();
+                var lat2 = eventLat.toRad();
+                 var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                var d = earthRadius * c;
+                if((Math.round(d * Math.pow(10, decimals)) / Math.pow(10, decimals)) < radius){
+                    filteredItems.push(items[i]);
+                } 
+            }
+            res.send(filteredItems);
+        });
+    });
 };
 
 // Show an Event

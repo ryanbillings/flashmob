@@ -92,6 +92,7 @@ app.get('/submitEvent',routes.createEvent);
 app.get('/joinevent',routes.joinEvent);
 app.get('/profile', routes.profile);
 app.get('/updatelocation', routes.location);
+app.get('/refreshevents/:radius', routes.refreshEvents);
 app.post('/login', passport.authenticate('local'),
   passport.authenticate('local', { successRedirect: '/events',
                                    failureRedirect: '/login',
