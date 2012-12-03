@@ -213,11 +213,12 @@ exports.createEvent = function(req,res){
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
     if(err) { return console.dir(err); }
         var collection = db.collection('event');
+        var current_date = new Date();
         var newEvent = 
         { 
             "name" : req.param("name",null),
-            "start_time" : new Date(),
-            "end_time" : new Date(),
+            "start_time" : day_names[current_date.getDay()] + ", " + month_names[current_date.getMonth()] + " " + current_date.getDate() + " " + current_date.getFullYear(),
+            "end_time" : day_names[current_date.getDay()] + ", " + month_names[current_date.getMonth()] + " " + current_date.getDate() + " " + current_date.getFullYear(),
             "users" : [req.user.username],
             "address" : req.param("address",null),
             "city" : req.param("city",null),
@@ -242,3 +243,25 @@ exports.createEvent = function(req,res){
     });
     
 }
+var month_names = new Array ( );
+month_names[month_names.length] = "January";
+month_names[month_names.length] = "February";
+month_names[month_names.length] = "March";
+month_names[month_names.length] = "April";
+month_names[month_names.length] = "May";
+month_names[month_names.length] = "June";
+month_names[month_names.length] = "July";
+month_names[month_names.length] = "August";
+month_names[month_names.length] = "September";
+month_names[month_names.length] = "October";
+month_names[month_names.length] = "November";
+month_names[month_names.length] = "December";
+
+var day_names = new Array ( );
+day_names[day_names.length] = "Sunday";
+day_names[day_names.length] = "Monday";
+day_names[day_names.length] = "Tuesday";
+day_names[day_names.length] = "Wednesday";
+day_names[day_names.length] = "Thursday";
+day_names[day_names.length] = "Friday";
+day_names[day_names.length] = "Saturday";
