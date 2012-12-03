@@ -193,7 +193,6 @@ exports.showEvent = function(req,res){
 };
 
 exports.joinEvent = function (req,res){
-    console.log('here');
     var username = req.user.username; 
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
     if(err) { return console.dir(err); }
@@ -255,9 +254,8 @@ exports.createEvent = function(req,res){
             });
         });
     });
-    
-<<<<<<< HEAD
-}
+};
+
 var month_names = new Array ( );
 month_names[month_names.length] = "January";
 month_names[month_names.length] = "February";
@@ -280,8 +278,6 @@ day_names[day_names.length] = "Wednesday";
 day_names[day_names.length] = "Thursday";
 day_names[day_names.length] = "Friday";
 day_names[day_names.length] = "Saturday";
-=======
-};
 
 exports.createMessage = function(req,res){
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
@@ -334,9 +330,6 @@ function dateCompare(a,b) {
     return 1;
   return 0;
 }
-<<<<<<< HEAD
->>>>>>> 70617e28b4ab292f3dcba83fc781f48eca08af23
-=======
 
 exports.chat = function(req,res){
     if(req.user && req.user.username){
@@ -345,4 +338,3 @@ exports.chat = function(req,res){
         res.redirect("/login");
     }
 };
->>>>>>> 8da6c1d57965459e04baf374fb58e717f21ceef2

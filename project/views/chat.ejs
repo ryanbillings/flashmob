@@ -9,6 +9,7 @@
       
           var socket = io.connect('http://localhost:3000');
           var eventid = window.location.pathname.split( '/' )[1];
+          
           // Receive a message
           socket.on("receive", function(data){
             var newMessage = document.createElement("div");

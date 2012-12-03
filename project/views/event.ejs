@@ -25,7 +25,6 @@
     </script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-<<<<<<< HEAD
   <body onload = "initialize()">   
   <a href = "#"><img src = "/images/flashmoblogo.png" id = "logo"/></a>
     <div id="eventdescbox" style="width:50%;">
@@ -68,36 +67,8 @@
           <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
           <input type = "submit" value = "Join Event" />
       </form>
+      <a href = "/chat/<%= event._id %>">Chat</a>
     </div>
-=======
-  <body onload = "initialize()">
-    <h1><%= event.name %></h1>
-    <form action = "/joinevent">
-        <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
-        <input type = "submit" value = "Join Event" />
-    </form>
-    <form id = "createMessage">
-        <input type = "hidden" value = "<%= event._id %>" name = "eventid" />
-        <textarea rows = 15 cols = 30 name = "content"></textarea>
-        <input type = "submit" value = "Send Message" />
-    </form>
-    <div><%= event.description %></div>
-    <div><%= event.address %></div>
-    <div><%= event.city %></div>
-    <div><%= event.state %></div>
-    <div><%= event.zipcode %></div>
-    <div><%= event.start_time %></div>
-    <div><%= event.end_time %></div>
-    <div>Attending Users:</div>
-    <ul>
-    <% for (var i = 0; i < event.users.length; i++) { %>
-        <li><%= event.users[i] %></li>
-    <% } %>
-    <div id = "map_canvas" style = "width: 600px; height: 600px"></div>
-<<<<<<< HEAD
->>>>>>> 70617e28b4ab292f3dcba83fc781f48eca08af23
-=======
-    <a href = "/chat/<%= event._id %>">Chat</a>
->>>>>>> 8da6c1d57965459e04baf374fb58e717f21ceef2
+    
   </body>
 </html>
