@@ -31,6 +31,11 @@
         <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
         <input type = "submit" value = "Join Event" />
     </form>
+    <form id = "createMessage">
+        <input type = "hidden" value = "<%= event._id %>" name = "eventid" />
+        <textarea rows = 15 cols = 30 name = "content"></textarea>
+        <input type = "submit" value = "Send Message" />
+    </form>
     <div><%= event.description %></div>
     <div><%= event.address %></div>
     <div><%= event.city %></div>

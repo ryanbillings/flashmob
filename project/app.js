@@ -83,6 +83,8 @@ passport.use(new PassportLocalStrategy(
 app.get('/login',routes.login);
 app.get('/logout',routes.logout);
 app.get('/signup',routes.signup);
+app.get('/inbox', routes.messages);
+app.get('/createMessage',routes.createMessage);
 app.post('/signup',routes.createUser);
 app.get('/', routes.index);
 app.get('/events',routes.events);

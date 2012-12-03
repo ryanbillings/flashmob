@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type = "text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCb9wRumFqLsS70GZQ4wzouUmaETo2Mv84&sensor=false"></script>
+    <script type = "text/javascript" src = "/javascripts/jquery-1.8.3.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+  </head>
+  <body>
+        <div id = "container">
+            <% for(var i = 0; i < messages.length; i++){ %>
+                <div><%= messages[i].content %></div>
+            <% } %>
+        </div>
+  </body>
+</html>
