@@ -2,22 +2,33 @@
 <html>
   <head>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap-responsive.css' />
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
   </head>
-  <body>
-    <h1>Login</h1>
-    <%= message %>
-    <form action="/login" method="post">
-        <div>
-            <label>Username:</label>
-            <input type="text" name="username"/>
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" name="password"/>
-        </div>
-        <div>
-            <input type="submit" value="Log In"/>
-        </div>
-    </form>
+  <body class="login">
+    <div id="login">
+        <h1>Flash Mob</h1> 
+        <p id="loginmsg">Login to Flash Mobile</p>   
+    </div>
+    <div id="loginbox">
+        <form action="/login" method="post" id="loginform">
+            <div class="textbox" style="padding-top:50px;">
+                <label for="username">Username:</label>
+                <input type="text" name="username"/>
+            </div>
+            <div class="textbox">
+                <label for="username">Password:</label>
+                <input type="password" name="password"/>
+            </div>
+            <div style="padding-top:20px;">
+                <input type="submit" value="Log In" class="btn btn-primary" id="libutton"/>
+            </div>
+        </form>
+        <form action="/signup" id="signup">
+            <input type="submit" value="Sign Up Now!" class="btn btn-primary" id="sunbutton">
+        </form>
+    </div>
+    
   </body>
 </html>

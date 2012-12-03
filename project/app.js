@@ -94,7 +94,7 @@ app.get('/profile', routes.profile);
 app.get('/updatelocation', routes.location);
 app.get('/refreshevents/:radius', routes.refreshEvents);
 app.post('/login', passport.authenticate('local'),
-  passport.authenticate('local', { successRedirect: '/events',
+  passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login',
                                    failureFlash: true })
 );
