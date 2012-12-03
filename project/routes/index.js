@@ -167,24 +167,13 @@ exports.showEvent = function(req,res){
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
         if(err) { return console.dir(err); }
         var collection = db.collection('event');
-        var ucollection = db.collection('user');
-        var attendees = new Array();
         var o_id = new BSON.ObjectID(req.param("id"));
         // Get the events
         collection.findOne({_id : o_id},function(err,result){
-               for (var u = 0; u < result.users.length; u++){
-                    //var u_id = new BSON.ObjectID(result.users[u].id);
-                    ucollection.findOne({username : result.users[u]}, function(err,result2){
-                        attendees.push(result2);
-                        if( u == result.users.length){
-                           db.close();
-                           var starttime = day_names[result.start_time.getDay()] + ", " + month_names[result.start_time.getMonth()] + " " + result.start_time.getDate() + ", " + result.start_time.getFullYear();
-                           var endtime = day_names[result.end_time.getDay()] + ", " + month_names[result.end_time.getMonth()] + " " + result.end_time.getDate() + ", " + result.end_time.getFullYear();
-                           res.render('event', { event:result, stime:starttime, etime:endtime, users:attendees });
-                        }
-                    });
-               }
-              
+              db.close();
+              var starttime = day_names[result.start_time.getDay()] + ", " + month_names[result.start_time.getMonth()] + " " + result.start_time.getDate() + ", " + result.start_time.getFullYear();
+              var endtime = day_names[result.end_time.getDay()] + ", " + month_names[result.end_time.getMonth()] + " " + result.end_time.getDate() + ", " + result.end_time.getFullYear();
+              res.render('event', { event:result, stime:starttime, etime:endtime });
         });
     });
     }else{

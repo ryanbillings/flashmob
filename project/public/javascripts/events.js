@@ -13,7 +13,6 @@ $(document).ready(function(){
                     renderEvents(response);
                 }
             });
-        
         });
     }
     
