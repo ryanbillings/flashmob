@@ -2,10 +2,23 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap-responsive.css' />
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>  </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+    	<div class="navbar-inner">
+    		<a href="/" class="btn btn-navbar"><i class="icon-home"></i></a>
+    		<form class="form-search">
+    			<input type="text" class="input-medium search-query" placeholder="Search Events...">
+    			<button type="submit" class="btn">Search</button>
+    		</form>
+    	</div>
+    </div>
+
+    <a href="/profile" class="btn btn-primary menubuttons">Profile</a>
+    <a href="/events" class="btn btn-primary menubuttons">Events</a>
+
   </body>
 </html>
