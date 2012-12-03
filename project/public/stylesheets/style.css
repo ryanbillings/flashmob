@@ -43,7 +43,7 @@ a {
 	box-shadow: 10px 10px 5px #888888;
 	margin: 0 auto;
 	width: 70%;
-	height: 390px;
+	height: auto;
 }
 
 #signupbox{
@@ -87,3 +87,23 @@ a {
 	margin-top: 125px;
 	margin-left: 100px;
 }
+
+#createevent {
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 10px 10px 5px #888888;
+	margin: 0 auto;
+	width: 70%;
+	height: auto;
+}
+
+#eventdescbox{
+	display: inline-block;
+	float: left;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid black;
+	text-align: left;
+	width: auto;
+}
+
+
