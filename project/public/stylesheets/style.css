@@ -1,8 +1,65 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: block;
 }
+
+body.login {
+	background: #fbfbfb;
+	min-width: 0;
+}
+
 
 a {
   color: #00B7FF;
+}
+
+.login h1{
+	text-align: center;
+}
+
+#loginmsg {
+	text-align: center;
+}
+
+#loginbox{
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 10px 10px 5px #888888;
+	margin: 0 auto;
+	width: 70%;
+	height: 390px;
+}
+
+#loginform label {
+	margin-left: -155px;
+}
+#loginform input {
+	display: inline-block;
+}
+
+.textbox {
+	margin-top: 10px;
+}
+
+.textbox input {
+	line-height: 30px;
+
+}
+
+#signup{
+	margin-top: -5px;
+}
+
+.button {
+	background-color: blue ;
+}
+
+.menubuttons{
+	height: 100px;
+	width: 100px;
+	display: inline-block;
+	margin-top: 125px;
+	margin-left: 100px;
 }
