@@ -299,3 +299,26 @@ a {
 #chat{
     font-size: 13px;
 }
+#connect{
+    margin-top: 200px;
+    font-size: 20px;
+    height: 80px;
+    width: 150px;
+}
+#chatOpts{
+    margin: 0 auto;
+    width: 500px;
+}
+#chats{
+    width: 500px;
+    border: 1px solid LightGray;
+    height: 350px;
+    overflow-y: scroll;
+    text-align: left;
+}
+.wholeChat{
+    border-bottom: 1px solid LightGray;
+}
+.chatUser{
+    color: #33CCCC;
+}
