@@ -313,9 +313,9 @@ exports.messages = function(req,res){
         MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
         if(err) { return console.dir(err); }
             var collection = db.collection('user');
-            var uMessages = collection.find({username:req.user.username},{messages:1}).toArray(function(err,items){
+            var messages = collection.find({username:req.user.username},{messages:1}).toArray(function(err,items){
                 db.close();
-                res.render("messages",{messages:items[0].messages.sort(dateCompare),"username" : req.user.username});
+                res.render("messages",{messages:items[0].messages.sort(dateCompare),username : req.user.username});
             });    
         });
     }else{

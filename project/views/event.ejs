@@ -30,52 +30,7 @@
   <body onload = "initialize()">   
     <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
     <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
-<<<<<<< HEAD
-    <div id="eventdescbox" style="width:50%;">
-      <div class="eventdesc">
-       <h1><%= event.name %></h1>
-      </div>
-      <div class="eventdesc">
-        Address: <%= event.address %>
-      </div>
-      <div class="eventdesc">
-        City: <%= event.city %>
-      </div>
-      <div class="eventdesc">
-        State: <%= event.state %>
-      </div>
-      <div class="eventdesc">
-        Zipcode: <%= event.zipcode %>
-      </div>
-      <div class="eventdesc">
-        Start Time: <%= stime %>
-      </div>
-      <div class="eventdesc">
-        End Time: <%= etime  %>
-      </div>
-      <div class="eventdesc">
-       Description: <%= event.description %>
-      </div>
-    </div>
-    <div id = "map_canvas" class="eventdescbox" style = "width: 600px; height: 600px; float:right; right: 30px;"></div>
-    <div id="attendees">
-      <h1>Attending Users:</h1>
-      <ul id="sortablelist">
-        <% for (var i = 0; i < event.users.length; i++) { %>
-          <li class="clearfix">
-            <div class="listitem_name"><a href="#"><%= event.users[i]%></a></div>
-          </li>
-        <% } %>
-      </ul>
-      <form action = "/joinevent">
-          <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
-          <input type = "submit" value = "Join Event" class="ebuttons" />
-      </form>
-      <form action="/chat/<%= event._id %>">
-        <input type="submit" value = "Chat" class="ebuttons" />
-      </form>
-    </div>
-=======
+
     <div id = "eventsContainer">
         <div class = "col1" id = "eventShow">
           <div class="eventdesc">
@@ -125,8 +80,6 @@
         </div>
         <div class = "col2">
             <div id = "map_canvas" class="eventdescbox" style = "width: 450px; height: 450px;"></div>
-        </div>
->>>>>>> 29ced4c62192e49fccfaa064afeffe94ae292795
-    
+        </div>    
   </body>
 </html>
