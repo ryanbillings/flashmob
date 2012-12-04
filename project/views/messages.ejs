@@ -22,20 +22,13 @@
                     <li class="msgs">
                       <div class="listitem_from"><%= messages[i].from %></div>
                       <div class="listitem_content"><%= messages[i].content %></div>
-                      <div class="listitem_created"><%= messages[i].created %></div>
+                      <div class="listitem_created"><%= (messages[i].created.getMonth()+1)+"/"+messages[i].created.getDay() %></div>
                     </li>
                   <% } %>
                 </ul>
               </div>
             </div>
           </div>
-            <% for(var i = 0; i < messages.length; i++){ %>
-                <div>
-                    <%= messages[i].created %>
-                    <%= messages[i].content %>
-                    <%= messages[i].from %>
-                </div>
-            <% } %>
         </div>
   </body>
 </html>

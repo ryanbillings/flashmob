@@ -1,15 +1,23 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "flashmobfinder",
+  "subdomain": "flashmob",
+  "version": "0.0.1-3",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "3.0.0",
     "ejs": "*",
     "socket.io": "*",
-    "mongodb" : "*",
-    "mongoose" : "*"
+    "mongodb": "*",
+    "mongoose": "*",
+    "geocoder": "*",
+    "connect-flash": "*",
+    "passport": "*",
+    "passport-local": "*"
+  },
+  "engines": {
+    "node": "0.6.x"
   }
 }

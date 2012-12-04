@@ -31,7 +31,8 @@ $(document).ready(function(){
             });
             marker.setMap(map);
             markerArray.push(marker);
-            bounds.extend(latLng);
+            fitToMarkers(markerArray);
+            //bounds.extend(latLng);
             var evtContain = document.createElement("div");
             var newDiv = document.createElement("div");
             var newEvtLink = document.createElement("a");
@@ -50,7 +51,32 @@ $(document).ready(function(){
             $(evtContain).append(newDiv).append(evtDate).append(evtDesc);
             $("#eventList").append(evtContain);
         }
-        map.fitBounds (bounds);
+        //map.fitBounds (bounds);
+    }
+    
+        // Pan & Zoom map to show all markers
+    function fitToMarkers(markers) {
+
+        var bounds = new google.maps.LatLngBounds();
+
+        // Create bounds from markers
+        for( var index in markers ) {
+            var latlng = markers[index].getPosition();
+            bounds.extend(latlng);
+        }
+
+        // Don't zoom in too far on only one marker
+        if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+           var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+           var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+           bounds.extend(extendPoint1);
+           bounds.extend(extendPoint2);
+        }
+
+        map.fitBounds(bounds);
+
+        // Adjusting zoom here doesn't work :/
+
     }
     
     function clearOverlays() {
