@@ -9,7 +9,6 @@
         <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
         <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
         <div id = "container">
-<<<<<<< HEAD
           <div class="inner clearfix">
             <div id="main" class="clearfix" role="main">
               <div id="listings-wrapper">
@@ -23,40 +22,13 @@
                     <li class="msgs">
                       <div class="listitem_from"><%= messages[i].from %></div>
                       <div class="listitem_content"><%= messages[i].content %></div>
-                      <div class="listitem_created"><%= messages[i].created %></div>
+                      <div class="listitem_created"><%= (messages[i].created.getMonth()+1)+"/"+messages[i].created.getDay() %></div>
                     </li>
                   <% } %>
                 </ul>
               </div>
             </div>
           </div>
-            <% for(var i = 0; i < messages.length; i++){ %>
-                <div>
-                    <%= messages[i].created %>
-                    <%= messages[i].content %>
-                    <%= messages[i].from %>
-                </div>
-=======
-            <% if(messages.length == 0){ %>
-                You have No Messages
-            <%} else {%>
-                <% for(var i = 0; i < messages.length; i++){ %>
-                    <div class = "message">
-                        <div class = "messageCol1">
-                            <div class = "messageFrom">
-                                <%= messages[i].from %>
-                            </div>
-                            <div class = "messageCreated">
-                                <%= (messages[i].created.getMonth()+1)+"/"+messages[i].created.getDay() %>
-                            </div>
-                        </div>
-                        <div class = "messageCol2">
-                            <%= messages[i].content %>
-                        </div>
-                    </div>
-                <% } %>
->>>>>>> 29ced4c62192e49fccfaa064afeffe94ae292795
-            <% } %>
         </div>
   </body>
 </html>
