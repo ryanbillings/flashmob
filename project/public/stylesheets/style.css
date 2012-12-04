@@ -228,4 +228,46 @@ a {
     width: 400px;
     text-overflow: ellipsis;
 }
+.message{
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 100px;
+    font-family: Arial;
+    font-size: 14px;
+    color: rgb(166,166,166);
+}
+.messageCol1{
+    width: 150px;
+    float: left;
+    text-align: center;
+}
+.messageCol2{
+    padding-left: 50px;
+    width: 400px;
+    float: left;
+    text-align: left;
+}
+.messageFrom{
+    font-weight: bold;
+}
+
+.tableEventName{
+    width: 100px;
+}
+.tableEventStart{
+    width: 100px;
+}
+.tableEventDesc{
+    display: block;
+    width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#userEventTable{
+    display: block;
+    width: 600px;
+    margin: 0 auto;
+}
 

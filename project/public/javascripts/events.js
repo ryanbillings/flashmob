@@ -32,12 +32,23 @@ $(document).ready(function(){
             marker.setMap(map);
             markerArray.push(marker);
             bounds.extend(latLng);
+            var evtContain = document.createElement("div");
             var newDiv = document.createElement("div");
             var newEvtLink = document.createElement("a");
             newEvtLink.innerHTML = newEvent.name;
+            newEvtLink.className = "eventName";
+            var evtDate = document.createElement("div");
+            evtDate.className = "eventDate";
+            newEvent.start_time = new Date(newEvent.start_time);
+            evtDate.innerHTML = (newEvent.start_time.getMonth()+1) + "/" + newEvent.start_time.getDay()
+                        + "/" + newEvent.start_time.getFullYear();
+            var evtDesc = document.createElement("div");
+            evtDesc.className = "eventDescription";
+            evtDesc.innerHTML = newEvent.description;
             $(newEvtLink).attr("href","/event/" + newEvent._id);
             $(newDiv).append(newEvtLink);
-            $("#eventList").append(newDiv);
+            $(evtContain).append(newDiv).append(evtDate).append(evtDesc);
+            $("#eventList").append(evtContain);
         }
         map.fitBounds (bounds);
     }

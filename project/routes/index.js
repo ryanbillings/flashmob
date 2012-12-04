@@ -185,17 +185,21 @@ exports.joinEvent = function (req,res){
     var username = req.user.username; 
     MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
     if(err) { return console.dir(err); }
+        var ucollection = db.collection('user');
         var collection = db.collection('event');
         var o_id = new BSON.ObjectID(req.param("eventid"));
         collection.findOne({_id : o_id},function(err,event){
             var userList = event.users;
-            console.log(userList);
             if(userList.indexOf(username) == -1){
                 collection.update({_id:o_id},
                                 {"$push":{users:username}},
                                 function(error, user){
-                                    db.close();
-                                    res.redirect("/event/"+req.param("eventid"));
+                                    ucollection.update({username:req.user.username},
+                                    {"$push":{events:event}},
+                                    function(error, evt){
+                                        db.close();
+                                        res.redirect("/event/"+req.param("eventid"));
+                                    });
                                 });
             }else{
                 db.close();
@@ -207,7 +211,11 @@ exports.joinEvent = function (req,res){
 
 // Form to create Event
 exports.eventForm = function (req, res){
-    res.render('eventform');
+    if(req.user && req.user.username){
+        res.render('eventform', {"username":req.user.username});
+    }else{
+        res.redirect("/login");
+    }
 };
 
 // Post Method on Form Submit
@@ -323,6 +331,21 @@ function dateCompare(a,b) {
 exports.chat = function(req,res){
     if(req.user && req.user.username){
         res.render("chat",{"username":req.user.username});
+    }else{
+        res.redirect("/login");
+    }
+};
+
+exports.account = function(req,res){
+    if(req.user && req.user.username){
+        MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+        if(err) { return console.dir(err); }
+            var collection = db.collection('user');
+            collection.findOne({username:req.user.username},function(err,item){
+                db.close();
+                res.render("user",{"user" : item});
+            });
+        });
     }else{
         res.redirect("/login");
     }
