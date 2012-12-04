@@ -9,41 +9,47 @@
   <body>
     <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
     <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
-    <form action = "/submitEvent" method = "get" id="loginbox">
-      <div class="textbox" style="padding-top:10px;">
-        <label for="name">Name:</label>
-        <input type="text" name="name"/>
-      </div>
-      <div class="textbox" style="padding-top:10px;">
-        <label for="address">Address:</label>
-        <input type="text" name="address"/>
-      </div>
-      <div class="textbox" style="padding-top:10px;">
-        <label for="city">City:</label>
-        <input type="text" name="city"/>
-      </div>
-      <div class="textbox" style="padding-top:10px;">
-        <label for="state">State:</label>
-        <input type="text" name="state"/>
-      </div>
-      <div class="textbox" style="padding-top:10px;">
-        <label for="zipcode">Zipcode:</label>
-        <input type="text" name="zipcode"/>
-      </div>
-      <div class="textbox" style="padding-top:10px;">
-        <label for="starttime">Start Time:</label>
-        <input type="date" name="starttime">
-      </div>
-      <div class="textbox" style="padding-top:10px;">
-        <label for="endtime">End Time:</label>
-        <input type="date" name="endtime">
-      </div>
-      <p style="margin-left: -385px;">Description:</p> 
-      <div class="textbox" style="margin-top:-30px;">
-        <textarea name="description" rows = 12 cols=35></textarea>
-      </div>
-      <div>
-        <input type = "submit" value = "Create" />
+    <form action = "/submitEvent" method = "get">
+    <div id = "eventsContainer" class = "createEvent">
+        <div class = "col1">
+          <div class="textbox" style="padding-top:10px;">
+            <label for="name">Name:</label>
+            <input type="text" name="name"/>
+          </div>
+          <div class="textbox" style="padding-top:10px;">
+            <label for="address">Address:</label>
+            <input type="text" name="address"/>
+          </div>
+          <div class="textbox" style="padding-top:10px;">
+            <label for="city">City:</label>
+            <input type="text" name="city"/>
+          </div>
+          <div class="textbox" style="padding-top:10px;">
+            <label for="state">State:</label>
+            <input type="text" name="state"/>
+          </div>
+          <div class="textbox" style="padding-top:10px;">
+            <label for="zipcode">Zipcode:</label>
+            <input type="text" name="zipcode"/>
+          </div>
+        </div>
+        <div class = "col2">
+          <div class="textbox" style="padding-top:10px;">
+            <label for="starttime">Start Time:</label>
+            <input type="date" name="starttime">
+          </div>
+          <div class="textbox" style="padding-top:10px;">
+            <label for="endtime">End Time:</label>
+            <input type="date" name="endtime">
+          </div>
+          <div class="textbox" style="padding-top:10px;">
+            <label for = "description">Description:</label>
+            <textarea name="description" rows = 8 cols=25></textarea>
+          </div>
+          <div class = "textbox" style = "padding-top:10px;">
+            <input type = "submit" value = "Create" class = "btn btn-info"/>
+          </div>
+        </div>
       </div>
     </form>
   </body>

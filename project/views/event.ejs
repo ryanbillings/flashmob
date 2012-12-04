@@ -72,8 +72,8 @@
               <a href = "/chat/<%= event._id %>" id = "chat" class = "btn btn-info">Chat With Attendees</a>
               <form id = "createMessage">
                 <input type = "hidden" value = "<%= event._id %>" name = "eventid" />
+                <textarea rows = 3 cols = 7 name = "content"></textarea><br />
                 <input type = "submit" class = "btn btn-info" value = "Send Message to Attendees" />
-                <textarea rows = 3 cols = 7 name = "content"></textarea>
               </form>
             </div>
         </div>

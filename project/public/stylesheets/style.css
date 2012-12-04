@@ -277,7 +277,9 @@ a {
     font-family: Arial;
     font-size: 13px;
     position: relative;
-    height: 450px !important;
+}
+#createMessage{
+    margin-top: 10px;
 }
 .eventUser{
     text-align: left;
@@ -321,4 +323,10 @@ a {
 }
 .chatUser{
     color: #33CCCC;
+}
+.col1 .textbox{
+    text-align: left !important;
+}
+.col2 .textbox{
+    text-align: left !important;
 }
