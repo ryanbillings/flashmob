@@ -129,17 +129,28 @@ a {
 #attendees{
 	margin-top: 25px;
 	display: inline-block;
+	float: center;
+	width: 55%;
+}
+
+.ebuttons{
+	float:left;
+	display: center;
+	text-align: center;
+	margin-left:215px;
 }
 
 #attendees ul{
 	list-style-type: none;
 	width: 50%;
+	display: inline;
 }
 
 #attendees li {
-	border: 1px dotted #999;
+	border: 1px solid #999;
 	border-width: 1px 0;
 	margin: 5px 0;
+	width: auto;
 }
 
 #attendees li a{
@@ -160,6 +171,32 @@ a {
 	font: normal 85% Verdana, Helvetica, sans-serif;
 	line-height: 125%;
 }
+
+#sortable_list{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font: 11px Arial, Helvetica, Geneva, sans-serif;
+}
+
+#sortable_list li.header div{
+	background-color: #ccc;
+	font-weight: bold;
+	cursor: default;
+}
+
+#sortable_list li div{
+	display: block;
+	float: left;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding: 3px, 5px;
+}
+
+#sortable_list li div.listitem_name{width:200px;}
+#sortable_list li div.listitem_from{width: 20%;}
+#sortable_list li div.listitem_content{width: 60%;}
+#sortable_list li div.listitem_created{width: 19%;}
 
 @media only screen and (max-device-width: 480px){
 

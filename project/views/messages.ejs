@@ -9,6 +9,26 @@
         <h1 id = "header"><a href = "#"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
         <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
         <div id = "container">
+          <div class="inner clearfix">
+            <div id="main" class="clearfix" role="main">
+              <div id="listings-wrapper">
+                <ul id="sortable_list">
+                  <li id="listitem" class="clearfix header">
+                    <div class="listitem_from">From:</div>
+                    <div class="listitem_content">Content:</div>
+                    <div class="listitem_created">Created At:</div>
+                  </li>
+                  <% for(var i = 0; i < messages.length; i++){ %>
+                    <li class="msgs">
+                      <div class="listitem_from"><%= messages[i].from %></div>
+                      <div class="listitem_content"><%= messages[i].content %></div>
+                      <div class="listitem_created"><%= messages[i].created %></div>
+                    </li>
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </div>
             <% for(var i = 0; i < messages.length; i++){ %>
                 <div>
                     <%= messages[i].created %>

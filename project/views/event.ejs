@@ -56,19 +56,21 @@
     </div>
     <div id = "map_canvas" class="eventdescbox" style = "width: 600px; height: 600px; float:right; right: 30px;"></div>
     <div id="attendees">
-      Attending Users:
+      <h1>Attending Users:</h1>
       <ul id="sortablelist">
         <% for (var i = 0; i < event.users.length; i++) { %>
-          <li id="listitem" class="clearfix header">
-            <%= event.users[i]%>
+          <li class="clearfix">
+            <div class="listitem_name"><a href="#"><%= event.users[i]%></a></div>
           </li>
         <% } %>
       </ul>
       <form action = "/joinevent">
           <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
-          <input type = "submit" value = "Join Event" />
+          <input type = "submit" value = "Join Event" class="ebuttons" />
       </form>
-      <a href = "/chat/<%= event._id %>">Chat</a>
+      <form action="/chat/<%= event._id %>">
+        <input type="submit" value = "Chat" class="ebuttons" />
+      </form>
     </div>
     
   </body>
