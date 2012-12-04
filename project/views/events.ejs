@@ -42,25 +42,49 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body onload = "initialize()">
-    <h1>Events</h1>
-    <span>Welcome <%= user.username %></span>
-    <span id = "currentLocation"><%=user.zipcode%></span><span id = "changeLink">Change</span>
-    <form id = "changeDiv" style = "display:none;" action = "/updatelocation">
-        Zipcode: <input type = "text" name = "newzip" />
-        <input type = "submit" value = "Change" />
-    </form><br />
-    Distance : 
-    <select id = "changeRadius">
-        <option value = "10" selected>10 Miles</option>
-        <option value = "20">20 Miles</option>
-        <option value = "30">30 Miles</option>
-        <option value = "3000">All</option>
-    </select>
-    <div id = "eventList">
-    <% for(var i = 0; i < allEvents.length; i++){ %>
-        <div><a href = "/event/<%=allEvents[i]._id%>"><%= allEvents[i].name %></a></div>
-    <% } %>
+    <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
+    <span id = "logged_in">Welcome <%=user.username%><br/><a href = "/logout">Logout</a></span>
+    <div id = "eventsContainer">
+        <div class = "col1">
+            <div id = "eventList">
+            <% for(var i = 0; i < allEvents.length; i++){ %>
+                <div>
+                    <div class = "eventName">
+                    <a href = "/event/<%=allEvents[i]._id%>">
+                        <%= allEvents[i].name %>
+                    </a>
+                    </div>
+                    <div class = "eventDate">
+               
+                        <%= (allEvents[i].start_time.getMonth()+1) + "/" + allEvents[i].start_time.getDay()
+                        + "/" + allEvents[i].start_time.getFullYear() %>
+                    </div>
+                    <div class = "eventDescription">
+                        <%= allEvents[i].description %>
+                    </div>
+                </div>
+            <% } %>
+            </div> 
+        </div>
+        <div class = "col2">
+            <div id = "eventsFilters">
+                <div>
+                    <label>Distance: </label>
+                    <select id = "changeRadius">
+                        <option value = "10" selected>10 Miles</option>
+                        <option value = "20">20 Miles</option>
+                        <option value = "30">30 Miles</option>
+                        <option value = "3000">All</option>
+                    </select>
+                </div>
+                <div>
+                    <form id = "changeDiv" action = "/updatelocation">
+                        <label>Zipcode: </label><input type = "text" name = "newzip" id = "changeZipcode" value = "<%=user.zipcode%>" />
+                    </form>
+                </div>
+            </div>
+        <div id = "map_canvas" style = "width: 450px; height: 450px"></div>
+        </div>
     </div>
-    <div id = "map_canvas" style = "width: 600px; height: 600px"></div>
   </body>
 </html>

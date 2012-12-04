@@ -26,7 +26,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body onload = "initialize()">   
-  <a href = "#"><img src = "/images/flashmoblogo.png" id = "logo"/></a>
+    <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
+    <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
     <div id="eventdescbox" style="width:50%;">
       <div class="eventdesc">
        <h1><%= event.name %></h1>

@@ -1,11 +1,24 @@
-
 body{
     text-align: center;
+    margin: 0px 0px 0px 0px;
+}
+#header{
+    margin: 0 auto;
+    padding-top: 10px;
+    background-color: #F2F2F2;
+}
+#logged_in{
+    font-family: Arial;
+    font-size: 13px;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    text-align: center;
+    margin-right: 10px;
+    margin-top: 5px;
 }
 #logo{
     position: relative;
-    top: -50px;
-    width: 100%;
 }
 
 #container{
@@ -13,8 +26,8 @@ body{
 }
 
 #iconList img{
-    height: 15%;
-    width: 15%;
+    height: 12%;
+    width: 12%;
     padding: 30px;
 }
 
@@ -150,5 +163,69 @@ a {
 
 @media only screen and (max-device-width: 480px){
 
+}
+
+#eventsContainer{
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 1000px;
+    max-height: 500px;
+}
+
+.col1{
+    width: 450px;
+    height: 500px;
+    float: left;
+}
+.col2{
+    width: 450px;
+    height: 500px;
+    float: left;
+}
+#eventsFilters{
+    float: right;
+    font-family: Arial;
+    font-size: 12px;
+    color: rgb(166,166,166);
+}
+#changeZipcode{
+    width: 70px;
+}
+#eventsFilters div{
+    padding: 3px;
+}
+#eventsFilters select,#eventsFilters input{
+    border: 1px solid #cccccc;
+}
+#map_canvas{
+    border: 1px solid #cccccc;
+}
+#eventList > div{
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid LightGray;
+}
+#eventList{
+    overflow-y: scroll;
+    margin-top: 52px;
+    height: 450px;
+    border: 1px solid LightGray;
+    font-family: Arial;
+}
+
+.eventName{
+    font-weight: bold;
+}
+.eventDate{
+    color: rgb(166,166,166);
+    font-weight: bold;
+}
+.eventDescription{
+    color: rgb(166,166,166);
+    white-space: nowrap;
+    font-size: 12px;
+    overflow: hidden;
+    width: 400px;
+    text-overflow: ellipsis;
 }
 

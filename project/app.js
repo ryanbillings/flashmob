@@ -48,19 +48,9 @@ io.sockets.on('connection', function(socket){
         if(!chatRooms[eventid]){
             chatRooms[eventid] = [];
         }
-        chatRooms[eventid].push(socket);    
+        chatRooms[eventid].push(socket); 
+        console.log(chatRooms);
     });
-    
-    /*
-    socket.on("disconnect",function(){
-        for(var key in chatRooms){
-            if(chatRooms[key].contains(socket)){
-                chatRooms[key].remove(socket);
-            }
-        }
-    });
-    */
-    
     
     socket.on("send",function(dataObj){
         var thisChatRoom = chatRooms[dataObj.eventid];

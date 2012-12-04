@@ -6,6 +6,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+        <h1 id = "header"><a href = "#"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
+        <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
         <div id = "container">
             <% for(var i = 0; i < messages.length; i++){ %>
                 <div>

@@ -8,7 +8,7 @@
       $(document).ready(function(){
       
           var socket = io.connect('http://localhost:3000');
-          var eventid = window.location.pathname.split( '/' )[1];
+          var eventid = window.location.pathname.split( '/' )[2];
           
           // Receive a message
           socket.on("receive", function(data){
@@ -22,24 +22,30 @@
             $("#chats").append(newMessage);
           });
           
-          
-          function attachListeners(){
-            // Submit a Message
-            $("#messageButton").click(function(){
-                var sendObj = 
+          var sendSocketMessage = function(){
+            var sendObj = 
                 {
                     message : $("#sendMessage").val(),
                     user: $("#username").html(),
                     eventid: eventid
                 };
-                socket.emit("send", sendObj);
-            });
+            socket.emit("send", sendObj);
+            $("#sendMessage").val("");
+          }
+          function attachListeners(){
+            // Submit a Message
+            $("#messageButton").click(sendSocketMessage);
             // Connect to the chat room
             $("#connect").click(function(){
                 $("#chatOpts").slideDown(1000,function(){
                     $("#connect").fadeOut();
                 });
                 socket.emit("sendUrl",eventid);
+            });
+            $("#sendMessage").keypress(function(e){
+                if(e.keyCode == 13){
+                    sendSocketMessage();
+                }
             });
           }
           
@@ -48,11 +54,10 @@
     </script>
   </head>
   <body>
+    <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
+    <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
     <div id = "container">
-        Welcome, <span id = "username"><%=username%></span>
-        <div id = "chats">
-        
-            
+        <div id = "chats">  
         </div>
         <div id = "chatOpts" style = "display:none;">
         <input type = "text" id = "sendMessage" />

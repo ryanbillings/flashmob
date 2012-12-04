@@ -82,7 +82,7 @@ exports.createUser = function(req,res){
 
 exports.index = function(req, res){
   if(req.user && req.user.username){
-    res.render('index');
+    res.render('index', {"username":req.user.username});
   }else{
     res.redirect("/login");
   }
@@ -173,7 +173,7 @@ exports.showEvent = function(req,res){
               db.close();
               var starttime = day_names[result.start_time.getDay()] + ", " + month_names[result.start_time.getMonth()] + " " + result.start_time.getDate() + ", " + result.start_time.getFullYear();
               var endtime = day_names[result.end_time.getDay()] + ", " + month_names[result.end_time.getMonth()] + " " + result.end_time.getDate() + ", " + result.end_time.getFullYear();
-              res.render('event', { event:result, stime:starttime, etime:endtime });
+              res.render('event', { event:result, stime:starttime, etime:endtime, "username" : req.user.username });
         });
     });
     }else{
@@ -290,7 +290,7 @@ exports.createMessage = function(req,res){
 
 exports.messageForm = function(req,res){
     if(req.user && req.user.username){
-        res.render("messageform");
+        res.render("messageform", {"username" : req.user.username});
     }else{
         res.redirect("/login");
     }
@@ -303,7 +303,7 @@ exports.messages = function(req,res){
             var collection = db.collection('user');
             var uMessages = collection.find({username:req.user.username},{messages:1}).toArray(function(err,items){
                 db.close();
-                res.render("messages",{messages:items[0].messages.sort(dateCompare)});
+                res.render("messages",{messages:items[0].messages.sort(dateCompare),"username" : req.user.username});
             });    
         });
     }else{
