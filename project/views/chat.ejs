@@ -2,6 +2,8 @@
 <html>
   <head>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+     <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap-responsive.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type = "text/javascript">
@@ -16,10 +18,15 @@
             var messageVal = document.createElement("span");
             var userVal = document.createElement("span");
             messageVal.innerHTML = data.message;
-            userVal.innerHTML = data.user;
-            $(newMessage).append(messageVal);
+            userVal.innerHTML = data.user + ": ";
+            userVal.className = "chatUser";
+            messageVal.className = "chatMessage";
+            newMessage.className = "wholeChat";
             $(newMessage).append(userVal);
+            $(newMessage).append(messageVal);
             $("#chats").append(newMessage);
+            var chatContainer = document.getElementById("chats");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
           });
           
           var sendSocketMessage = function(){
@@ -37,8 +44,8 @@
             $("#messageButton").click(sendSocketMessage);
             // Connect to the chat room
             $("#connect").click(function(){
-                $("#chatOpts").slideDown(1000,function(){
-                    $("#connect").fadeOut();
+                $("#connect").fadeOut(1000,function(){
+                    $("#chatOpts").slideDown();
                 });
                 socket.emit("sendUrl",eventid);
             });
@@ -55,15 +62,16 @@
   </head>
   <body>
     <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
+    <span id = "username" style = "display:none;"><%=username%></span>
     <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
     <div id = "container">
+        <div id = "chatOpts" style = "display:none;">
         <div id = "chats">  
         </div>
-        <div id = "chatOpts" style = "display:none;">
         <input type = "text" id = "sendMessage" />
-        <input type = "button" id = "messageButton" value = "Send Message"/>
+        <input type = "button" id = "messageButton" class = 'btn btn-info' value = "Send Message"/>
         </div>
-        <input type = "button" id = "connect" value = "Connect"/>
+        <input type = "button" id = "connect" class = "btn btn-success" value = "Connect"/>
     </div>
   </body>
 </html>

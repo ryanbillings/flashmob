@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap-responsive.css' />
+  </head>
+  <body>
+    <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
+    <span id = "logged_in">Welcome <%=user.username%><br/><a href = "/logout">Logout</a></span>
+    <div id = "container">
+            <div class="textbox" style="padding-top:50px;">
+                <label for="username">Username:</label><%= user.username %>
+            </div>
+            <div class="textbox">
+                <label for="firstname">First Name:</label><%= user.firstname %>
+            </div>
+            <div class="textbox">
+                <label for="lastname">Last Name:</label><%= user.lastname %>
+            </div>
+            <div class="textbox">
+                <label for="zipcode">Home Zipcode:</label><%= user.zipcode %>
+            </div>
+            <div id = "userEvents">
+                Upcoming Events
+                <table class="table table-bordered" id = "userEventTable">
+                    <thead>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                    <% for(var i = 0; i < user.events.length; i++) {%>
+                    <tr>
+                        <td class = "tableEventName"><%=user.events[i].name%></td>
+                        <td class = "tableEventStart"><%= (user.events[i].start_time.getMonth()+1) + "/" + user.events[i].start_time.getDay()
+                        + "/" + user.events[i].start_time.getFullYear() %></td>
+                        <td class = "tableEventDesc"><%=user.events[i].description%></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</html>

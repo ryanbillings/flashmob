@@ -114,6 +114,7 @@ app.get('/login',routes.login);
 app.get('/logout',routes.logout);
 app.get('/signup',routes.signup);
 app.get('/inbox', routes.messages);
+app.get('/user', routes.account);
 app.get('/createMessage',routes.createMessage);
 app.post('/signup',routes.createUser);
 app.get('/', routes.index);
