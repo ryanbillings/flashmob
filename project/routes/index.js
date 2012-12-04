@@ -277,23 +277,27 @@ day_names[day_names.length] = "Friday";
 day_names[day_names.length] = "Saturday";
 
 exports.createMessage = function(req,res){
-    MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
-    console.log('hi');
-    if(err) { return console.dir(err); }
-        var collection = db.collection('event');
-        var userCollection = db.collection('user');
-        var o_id = new BSON.ObjectID(req.param("eventid"));
-        var message = { "content" : req.param("content"),
-                        "from" : req.user.username,
-                        "created" : new Date()};
-        collection.findOne({_id:o_id}, function(err,evt){
-            for(var i = 0; i < evt.users.length; i++){
-                userCollection.update({username:evt.users[i]},
-                                {"$push":{messages:message}}, function(err, u){});
-            }
+    if(req.user && req.user.username){
+        MongoClient.connect("mongodb://localhost:27017/flashmob", function(err, db) {
+        console.log('hi');
+        if(err) { return console.dir(err); }
+            var collection = db.collection('event');
+            var userCollection = db.collection('user');
+            var o_id = new BSON.ObjectID(req.param("eventid"));
+            var message = { "content" : req.param("content"),
+                            "from" : req.user.username,
+                            "created" : new Date()};
+            collection.findOne({_id:o_id}, function(err,evt){
+                for(var i = 0; i < evt.users.length; i++){
+                    userCollection.update({username:evt.users[i]},
+                                    {"$push":{messages:message}}, function(err, u){});
+                }
+            });
+            res.send({"success":true});
         });
-        res.send({"success":true});
-    });
+    }else{
+        res.redirect("/login");
+    }
 };
 
 exports.messageForm = function(req,res){

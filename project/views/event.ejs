@@ -5,7 +5,9 @@
     <script type = "text/javascript" src = "/javascripts/jquery-1.8.3.min.js"></script>
     <script type = "text/javascript" src = "/javascripts/event.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-<script type="text/javascript">
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap-responsive.css' />
+    <script type="text/javascript">
       function initialize() {
        var latLng = new google.maps.LatLng(<%=event.latitude%>,
                                                  <%=event.longitude%>);
@@ -28,48 +30,56 @@
   <body onload = "initialize()">   
     <h1 id = "header"><a href = "/"><img src = "/images/flashmoblogo.png" id = "logo"/></a></h1>
     <span id = "logged_in">Welcome <%=username%><br/><a href = "/logout">Logout</a></span>
-    <div id="eventdescbox" style="width:50%;">
-      <div class="eventdesc">
-       <h1><%= event.name %></h1>
-      </div>
-      <div class="eventdesc">
-        Address: <%= event.address %>
-      </div>
-      <div class="eventdesc">
-        City: <%= event.city %>
-      </div>
-      <div class="eventdesc">
-        State: <%= event.state %>
-      </div>
-      <div class="eventdesc">
-        Zipcode: <%= event.zipcode %>
-      </div>
-      <div class="eventdesc">
-        Start Time: <%= stime %>
-      </div>
-      <div class="eventdesc">
-        End Time: <%= etime  %>
-      </div>
-      <div class="eventdesc">
-       Description: <%= event.description %>
-      </div>
-    </div>
-    <div id = "map_canvas" class="eventdescbox" style = "width: 600px; height: 600px; float:right; right: 30px;"></div>
-    <div id="attendees">
-      Attending Users:
-      <ul id="sortablelist">
-        <% for (var i = 0; i < event.users.length; i++) { %>
-          <li id="listitem" class="clearfix header">
-            <%= event.users[i]%>
-          </li>
-        <% } %>
-      </ul>
-      <form action = "/joinevent">
-          <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
-          <input type = "submit" value = "Join Event" />
-      </form>
-      <a href = "/chat/<%= event._id %>">Chat</a>
-    </div>
+    <div id = "eventsContainer">
+        <div class = "col1" id = "eventShow">
+          <div class="eventdesc">
+           <h1><%= event.name %></h1>
+          </div>
+          <div class="eventdesc">
+            Address: <%= event.address %>
+          </div>
+          <div class="eventdesc">
+            City: <%= event.city %>
+          </div>
+          <div class="eventdesc">
+            State: <%= event.state %>
+          </div>
+          <div class="eventdesc">
+            Zipcode: <%= event.zipcode %>
+          </div>
+          <div class="eventdesc">
+            Start Time: <%= stime %>
+          </div>
+          <div class="eventdesc">
+            End Time: <%= etime  %>
+          </div>
+          <div class="eventdesc">
+           Description: <%= event.description %>
+          </div>
+           <div id="attendees">
+              Attending Users:
+              <ul id="sortablelist">
+                <% for (var i = 0; i < event.users.length; i++) { %>
+                  <li class="clearfix header eventUser">
+                    <%= event.users[i]%>
+                  </li>
+                <% } %>
+              </ul>
+              <form action = "/joinevent" id = "joinEvent">
+                  <input type = "text" value = "<%= event._id %>" name = "eventid" style = "display:none;" />
+                  <input type = "submit" class = "btn btn-info"  value = "Join Event" />
+              </form>
+              <a href = "/chat/<%= event._id %>" id = "chat" class = "btn btn-info">Chat With Attendees</a>
+              <form id = "createMessage">
+                <input type = "hidden" value = "<%= event._id %>" name = "eventid" />
+                <input type = "submit" class = "btn btn-info" value = "Send Message to Attendees" />
+                <textarea rows = 3 cols = 7 name = "content"></textarea>
+              </form>
+            </div>
+        </div>
+        <div class = "col2">
+            <div id = "map_canvas" class="eventdescbox" style = "width: 450px; height: 450px;"></div>
+        </div>
     
   </body>
 </html>
