@@ -8,7 +8,7 @@
       function initialize() {
         var mapOptions = {
           center: new google.maps.LatLng(<%=user.latitude%>,<%=user.longitude%>),
-          zoom: 8,
+          zoom: 10,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -56,7 +56,8 @@
                     </div>
                     <div class = "eventDate">
                
-                        <%= allEvents[i].start_time %>
+                        <%= (allEvents[i].start_time.getMonth()+1) + "/" + allEvents[i].start_time.getDay()
+                        + "/" + allEvents[i].start_time.getFullYear() %>
                     </div>
                     <div class = "eventDescription">
                         <%= allEvents[i].description %>
